@@ -23,6 +23,8 @@ jobs:
     steps:
       # Check out the repo under $GITHUB_WORKSPACE
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0 # important!
 
       # Install CodeSniffer
       - name: Install PHP_CodeSniffer
@@ -33,5 +35,6 @@ jobs:
       - uses: tinovyatkin/action-php-codesniffer@v1
         with:
           files: "**.php"
+          scope: "files"
           phpcs_path: php phpcs.phar
           standard: PSR12
