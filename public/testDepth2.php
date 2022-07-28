@@ -4,10 +4,11 @@ $test = "new";
 
 echo("String");
 
-if($test == "new"){
+if($test == "new") {
     echo("uh oh");
 }
 
-if($test == "new branch test"){
+if ($test == "new branch test") {
     // Do somethin
+    // Only modify here
 }
