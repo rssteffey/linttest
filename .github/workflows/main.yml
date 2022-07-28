@@ -32,7 +32,7 @@ jobs:
       # Lint the modified files
       - uses: tinovyatkin/action-php-codesniffer@v1
         with:
-          files: **.php
-          scope: "files"
+          files: "**.php"
+          scope: "file"
           phpcs_path: php phpcs.phar
           standard: PSR12
