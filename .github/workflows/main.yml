@@ -33,6 +33,6 @@ jobs:
       - uses: tinovyatkin/action-php-codesniffer@v1
         with:
           files: "**.php"
-          scope: files
+          scope: "file"
           phpcs_path: php phpcs.phar
           standard: PSR12
