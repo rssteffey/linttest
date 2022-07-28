@@ -1,29 +1,38 @@
-name: "CI"
+# This is a basic workflow to help you get started with Actions
 
+name: CodeSniffer
+
+# Controls when the workflow will run
 on:
+  # Triggers the workflow on any php files in PRs
   pull_request:
     paths:
       - "**.php"
       - "phpcs.xml"
       - ".github/workflows/phpcs.yml"
+    branches: [ "master", "develop" ]
+
+  # Allow us to run this workflow manually from the Actions tab
+  workflow_dispatch:
 
 jobs:
-  phpcs:
+  lint:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0 # important!
 
-      # we may use whatever way to install phpcs, just specify the path on the next step
-      # however, curl seems to be the fastest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Check out the repo under $GITHUB_WORKSPACE
+      - uses: actions/checkout@v3
+
+      # Install CodeSniffer
       - name: Install PHP_CodeSniffer
         run: |
           curl -OL https://squizlabs.github.io/PHP_CodeSniffer/phpcs.phar
           php phpcs.phar --version
-
+      # Lint the modified files
       - uses: tinovyatkin/action-php-codesniffer@v1
         with:
-          files: "**.php" # you may customize glob as needed
+          files: "**.php"
+          scope: file
           phpcs_path: php phpcs.phar
-          standard: phpcs.xml
+          standard: PSR12
